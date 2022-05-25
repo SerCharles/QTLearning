@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\title{D3文档}
+\author{软71 沈冠霖 2017013569}
+\begin{document}
+\begin{CJK}{UTF8}{gkai}
+\maketitle
+\section{T3} 
+\subsection{代码} 
+\paragraph{}定义了TestTimeArray类来随机生成前两个数组，用clock\_t变量记录时间。用6个子类实现了六种循环顺序，覆盖了数组运算函数，利用动态多态性来比较六种方法的时间。
+\subsection{结果}
+\paragraph{数据范围$50^{3}$}结果如下：\\
+The 1 th Group, which uses the sequense of ijk, spends 934 ms per calculation.\\
+The 2 th Group, which uses the sequense of ikj, spends 985 ms per calculation.\\
+The 3 th Group, which uses the sequense of jik, spends 1141 ms per calculation.\\
+The 4 th Group, which uses the sequense of jki, spends 1049 ms per calculation.\\
+The 5 th Group, which uses the sequense of kij, spends 1265 ms per calculation.\\
+The 6 th Group, which uses the sequense of kji, spends 1343 ms per calculation.\\
+\paragraph{数据范围$100^{3}$}结果如下：\\
+The 1 th Group, which uses the sequense of ijk, spends 5954 ms per calculation.\\
+The 2 th Group, which uses the sequense of ikj, spends 7787 ms per calculation.\\
+The 3 th Group, which uses the sequense of jik, spends 6132 ms per calculation.\\
+The 4 th Group, which uses the sequense of jki, spends 7107 ms per calculation.\\
+The 5 th Group, which uses the sequense of kij, spends 12975 ms per calculation.\\
+The 6 th Group, which uses the sequense of kji, spends 11912 ms per calculation.\\
+\paragraph{数据范围$200^{3}$}结果如下：\\
+The 1 th Group, which uses the sequense of ijk, spends 40287 ms per calculation.\\
+The 2 th Group, which uses the sequense of ikj, spends 64228 ms per calculation.\\
+The 3 th Group, which uses the sequense of jik, spends 40798 ms per calculation.\\
+The 4 th Group, which uses the sequense of jki, spends 62277 ms per calculation.\\
+The 5 th Group, which uses the sequense of kij, spends 207003 ms per calculation.\\
+The 6 th Group, which uses the sequense of kji, spends 247932 ms per calculation.\\
+\paragraph{数据范围$400^{3}$}结果如下：\\
+The 1 th Group, which uses the sequense of ijk, spends 251845 ms per calculation.\\
+The 2 th Group, which uses the sequense of ikj, spends 534599 ms per calculation.\\
+The 3 th Group, which uses the sequense of jik, spends 280314 ms per calculation.\\
+The 4 th Group, which uses the sequense of jki, spends 534119 ms per calculation.\\
+The 5 th Group, which uses the sequense of kij, spends 1882023 ms per calculation.\\
+The 6 th Group, which uses the sequense of kji, spends 2108728 ms per calculation.\\
+\subsection{结论}
+\subsubsection{规律}循环为ijk顺序的是最快的，循环为kij，kji的很慢。而且数据范围越大，不同顺序之间速度差距越大。
+\subsubsection{分析}
+\paragraph{}首先，三种循环的时间效率都是$n^{3}$，完全一样。其次，三种循环进行的比较次数也是一样的，因为都是从0到n循环，比较$n+n^{2}+n^{3}$次。那么造成这种不同的主要差距应该是调取数据的速度。
+\paragraph{}三维数组在内存空间以链状连续存储。元素[i][j][k]和[i][j][k+1]距离为1;[i][j][k]和[i][j+1][k]距离为n;[i][j][k]与[i+1][j][k]距离为$n^{2}$;这样，在整个计算过程中，指针在内存中移动距离越小，计算就应该越快。
+在ijk顺序中，绝大多数的时间指针一次移动距离都是1。而在kji，kij中，指针绝大多数时间移动距离都是$n^{2}$。这样读取数据时间前者就比后者小。当n越大的时候，指针移动距离差距更大，运行效率差距就更大了。因此我推测有上面的结果的原因主要是读取总内存时间不同。
+\end{CJK}
+\end{document}

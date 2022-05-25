@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\title{第一次实验报告}
+\author{软71 沈冠霖 2017013569}
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+\maketitle
+\section{实验目标}本次实验有四个目标：首先，自己实现字符串，栈，链表，哈希表四个基本类，并且尽量做成模板类来复用。其次，能够读取几十万长度的词库，并且进行保存，散列变换。之后，能够对符合要求的网页进行解析，提取其标题，时间，来源，正文。最后，对正文进行中文分词。这一切都是为了构建之后的新闻检索与推荐系统。
+\section{实验环境} Win10，VS2017下进行开发。
+
+\section{抽象数据定义}
+\paragraph{字符串}定义了一个字符串类NCharString，可以进行空字符串构造（空构造函数），通过char来构造（重载构造函数），赋值(m_SetValue)，复制(m_Duplicate),截取（m_CutString），拼接(f_Concat，m_PushBackChar，m_PushBackString),查找子串(m_FindSubString),比较（m_Compare）等功能。
+\paragraph{链表}定义了查找（查找第i个位置的m_SearchAtPlace,查找第一个和给定数据相等的m_SearchEqual),在给定位置后插入(m_InsertAtPlace),删除给定位置(m_DeleteAtPlace)，构造和析构功能。还继承了一个字符串链表NCharStringLink,有一个m_PushBack函数。
+\paragraph{栈}定义了一个栈NStack，基于链表，里面存储标签和标签内的内容，便于进行解析。可以实现入栈（mm_PushBack）,出栈(m_PopBack),判断是否为空(m_JudgeEmpty).
+\paragraph{哈希表}定义了一个29万长度的哈希表，可以把一个我自定义类型的字符串链表转换成哈希，也可以读入一个我自定义的字符串来搜索其位置。此处有引用代码[1]。
+\paragraph{具体模块}定义了一个常数类Constant和一个全局常数类变量g\_Constant，负责读入开始的几个数字，并存储4个数字，24结果等信息。定义了一个类NumberBase来存储每种情况的结果，及其使用的数字，还有其父母情况。定义了一个类NumberList来生成，存储所有情况，并生成算式。
+\section{网页解析}
+
+\end{CJK}
+\end{document}

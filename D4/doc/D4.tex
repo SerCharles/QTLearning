@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\title{D4文档}
+\author{软71 沈冠霖 2017013569}
+\begin{document}
+\begin{CJK}{UTF8}{gkai}
+\maketitle
+\section{T4第一问} 
+\subsection{代码} 
+\paragraph{按钮}通过ui界面定义了0-9 10个数字按钮（pushbutton），一个delete按钮用来删除单个数字，一个clear按钮用来清空全部显示。还有一个quit按钮退出程序。
+\paragraph{按钮交换机类}自己定义了一个交换机类QKeyBoardMedium,每个交换机对象与一个按钮对应，负责将不同按钮的click信号转化成字符信息传递给显示交换机。
+\paragraph{显示交换机}自己定义了一个显示交换机类QShowMedium，只有一个显示交换机，存储要显示的字符。负责接收不同按钮的click信号，对字符进行操作，并且传给显示器。
+\paragraph{显示器}用ui界面定义了一个TextBrowser负责显示。
+\paragraph{流程}按下按钮i----》对应的按钮交换机对象i接收信号，并发送按钮对应的字符信息--------》显示交换机对象接收信号，处理自己的字符串，并发送信号------》显示器变更显示。
+\subsection{评估}这样代码扩展性强很多，也更容易修改。假如要新增按钮，只需要再手动新建一个对应的按钮交换机对象，并且将这个新对象与按钮和显示交换机对象的连接建立就可以了。
+\\
+\section{T4第二问} 
+\subsection{代码} 
+\paragraph{控件}通过ui界面定义了2个dial和2个lcd显示器，分别对应华氏度和摄氏度。 
+\paragraph{自定义处理器类}自定义了一个处理器类TemperatureManager。有两个槽，分别与华氏，摄氏的dial连接，负责接收dial值改变的信号。为了防止循环更新，槽一开始要判断值是否真正改变。
+有两个信号，华氏变更信号连接华氏的dial和lcd，摄氏同理。
+\subsection{流程--变化}移动华氏的dial-------》处理器类的华氏处理槽收到信号，改变处理器存储的华氏，摄氏温度------》处理器释放华氏，摄氏变化信号，让4个控件的显示发生变化。移动摄氏的dial同理。
+\end{CJK}
+\end{document}

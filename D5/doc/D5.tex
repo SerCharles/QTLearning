@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\title{D5文档}
+\author{软71 沈冠霖 2017013569}
+\begin{document}
+\begin{CJK}{UTF8}{gkai}
+\maketitle
+\section{T1} 
+\subsection{代码} 
+\paragraph{控件}使用了一个LineEdit负责读入数据，以及一个只读的Textedit负责显示各行数据。
+\paragraph{自定义类}自定义了一个TextManager类负责进行数据处理。当LineEdit数据改变时，这个类的槽被激活，保持数据同步; 当按下空格后，这个类的槽被激活，发射信号清空lineedit，并且将数据传输给textedit进行显示
+\subsection{结果}结果正确
+\section{T2} 
+\subsection{代码} 
+\paragraph{控件} 主界面只有一个菜单按钮，负责打开对话框\\
+对话框有三个spinbox，负责选取年月日。还有一个按钮确认\\
+点击按钮后会弹出相应的对话框。如果日期合法，则会弹出about对话框显示日期。否则会弹出warning对话框报错。
+\paragraph{自定义类}自定义了一个DateManager负责更新spinbox的日期，判断日期是否合法以及弹出对应的对话框。
+\paragraph{实现判断是否合法功能}我一共用了两种方法判断是否合法。首先，我用spinbox来输入年月日，定义年是1900-2050的int类型，月是1-12的int类型，日是1-31的int类型，这样就可以排除非int输入和一些离谱的数据。
+之后，我用一个自定义函数来判断是否是闰年，进而判断月-日组合是否合法来判断日期是否合理。 
+\subsection{结果}一般正确日期：输入1999年2月8日，正常输出\\
+一般错误日期：输入2018年9月31日，报错\\
+闰年：输入2016年2月29日，正常输出\\
+输入1900年2月29日，报错\\
+输入2000年2月29日，正常输出\\
+\section{T3}
+\subsection{代码} 
+\paragraph{控件}用了一个ToolButton负责显示和切换图片，不过需要在designer里事先设定好${icon_size}$。自定义一个类PictureManager负责处理数据。我在manager里预先存好对应的图片和文字，待接收到click（）信号后再切换图片和文字。
+\paragraph{图片}读取图片用的是QIcon类的构造函数，只需要往里传相对路径${"./res/england.jpg"}$即可。这里有两个坑。其一，在编译运行程序时，默认的初始路径在可执行文件的上一个文件夹里。在执行可执行文件时，默认的初始路径和可执行文件目录相同。其二，这个类支持${.jpg}$文件，而不支持png文件。
+\paragraph{结果与评估}结果正确。我的代码优点是易于扩展。因为我定义图片数量用的是一个const常量，而且图片的存储用的是vector，图片的读取也只在构造函数里进行。因此要想增删图片，只需要简单修改构造函数即可。缺点是耦合性太高了。因为toolbutton没有接收QIcon参数的槽，因此修改图片用不了信号-槽机制，只能把toolbutton的指针存到manager里，调用setIcon函数修改。这样耦合太高，封装效果不好。良好的解决方案是自己在toolbutton的基础上继承一个类，并添加对应的槽。
+\end{CJK}
+\end{document}

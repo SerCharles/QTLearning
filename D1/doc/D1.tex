@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\title{D1文档}
+\author{软71 沈冠霖 2017013569}
+\begin{document}
+\begin{CJK}{UTF8}{gkai}
+\maketitle
+\section{T1第一问} 
+\subsection{代码} 
+\paragraph{}定义了一个类Member，将string类的姓名和int类的年龄设置为const，private，来保证其封装性和不可修改。
+\paragraph{}重载了两个构造函数：一个是无参数构造函数，设置名称为？，年龄为0;另一个支持传入string和int型的姓名，年龄参数。都用初始化表初始化姓名年龄，来保证其满足const要求。
+\paragraph{}用Member的友元函数重载了cout，来保证能用cout输出。
+\subsection{运行方式与结果}用linux命令行运行以下指令： g++ -o test.exe main.cpp Member.cpp Member.h，这样就生成可执行文件。再执行即可。输出结果如下。\\
+\\
+\\
+The name of the player is Zhang San, and his age is 22\\
+The name of the player is Li Si, and his age is 19\\
+The name of the player is Wang Wu, and his age is 18\\
+The name of the player is Zhao Liu, and his age is 24\\
+The name of the player is ?, and his age is 0\\
+\\
+\section{T1第二问} 
+\subsection{代码} 
+\paragraph{} 比起第一问，第二问多了一个Member的友元类MemberList，能用里面的vector存储member元素。其构造函数有两种重载形式：默认的空vector形式，可以读入数组和长度来初始化vector形式。析构函数则实现了清空vector，防止内存泄漏。
+\paragraph{} 而且MemberList类用一个成员函数重载了数组中括号，实现了搜索年龄的功能。具体功能是如果有叫这个名字的队员，则输出搜索到的第一个队员的年龄。否则输出-1.
+\subsection{运行方式与结果}运行方式同上。输出结果如下。\\
+\\
+\\
+The name of the player is Zhang San, and his age is 22\\
+The name of the player is Li Si, and his age is 19\\
+The name of the player is Wang Wu, and his age is 18\\
+The name of the player is Zhao Liu, and his age is 24\\
+The name of the player is ?, and his age is 0\\
+22\\
+19\\
+18\\
+24\\
+-1\\
+\\
+\section{T2}定义了一个基类Shape，设置了一个虚函数getarea，还有protected变量area，这些是各种具体图形通用的属性和方法。同时派生了三个子类：Circle，Rectangle，Square。分别覆盖了getarea函数。 运行结果和题目完全一致。
+\section{T3}在hpp文件Max.hpp中声明与定义了模板函数Max（因为模板函数定义声明必须在一起），用一个模板函数实现了题目要求。
+\end{CJK}
+\end{document}
